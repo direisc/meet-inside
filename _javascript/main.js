@@ -2,17 +2,28 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Hello Bulma!");
 });
 
-const openCall = () => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const token = searchParams.get("token");
-
+const openCall = (
+  roomName = "teste",
+  token,
+  roomPassword,
+  width = 426,
+  height = 240,
+  id = "#meet"
+) => {
+  // const searchParams = new URLSearchParams(window.location.search);
+  // const token = searchParams.get("token");
+  // https://meet.indaiatuba.sp.gov.br/2c434d77-d98f-4873-a1fd-d8ff0b65021d#jitsi_meet_external_api_id=0&config.defaultLanguage=%22ptBR%22
   const domain = "meet.indaiatuba.sp.gov.br";
   const options = {
-    roomName: "SalusP2P",
-    width: "100%",
-    height: 700,
-    jwt: "biwsbj11c3Jfc2FsdXMscj1lMTk1MDhiNWYxNmM1ZDkyOTQ4NDQ3Yzc4MWNmNzJiYQ==",
+    roomName: roomName,
+    width: width,
+    height: height,
     parentNode: document.querySelector("#meet"),
+    jwt: token,
+    configOverwrite: {
+      defaultLanguage: "ptBR",
+      disableDeepLinking: true,
+    },
   };
   const api = new JitsiMeetExternalAPI(domain, options);
   // api.addEventListener("passwordRequired ", () => {
